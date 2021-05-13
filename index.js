@@ -4,6 +4,7 @@ const score = document.getElementById('score')
 
 //1 is right; -1 is left; 20 is down; -20 is up;
 let direction = 1;
+let isKeyPressed = false;
 
 let squares = [];
 let snake = [2, 1, 0];
@@ -23,11 +24,31 @@ function createGrid() {
     }
 }
 
+function doGameCycle() {
+    move();
+}
+
+function checkCollision() {
+    if (
+        ((snake[0] - 20 < 0) && direction === -20) ||  //snake hits top wall!
+        ((snake[0] % 20 === 19) && direction === 1) ||  //snake hits right wall!
+        ((snake[0] + 20 > 400) && direction === 20) ||  //snake hits bottom wall!
+        ((snake[0] % 20 === 0) && direction === -1) ||  //snake hits left wall!
+        (squares[snake[0] + direction].classList.contains('snake'))
+    ) {
+        clearInterval(gameTick);
+        return true;
+    }
+    return false;
+}
+
 function move() {
-    squares[(snake.pop())].classList.remove('snake');
-    snake.unshift(snake[0] + direction);
-    squares[snake[0]].classList.add('snake');
-    isKeyPressed = false;
+    if (!checkCollision()) {
+        squares[(snake.pop())].classList.remove('snake');
+        snake.unshift(snake[0] + direction);
+        squares[snake[0]].classList.add('snake');
+        isKeyPressed = false;
+    }
 }
 
 function keyHandler(event) {
@@ -53,14 +74,16 @@ function keyHandler(event) {
     }
 }
 
+
+
 createGrid();
 
 snake.forEach((frag) => {
     squares[frag].classList.add('snake');
 })
 
-let isKeyPressed = false;
-let gameTick = setInterval(move, 100);
+
+let gameTick = setInterval(doGameCycle, 100);
 
 
 
