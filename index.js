@@ -1,12 +1,15 @@
 const grid = document.querySelector('.grid')
 const startButton = document.getElementById('start-btn')
 const score = document.getElementById('score')
+const width = 20;
 
-//1 is right; -1 is left; 20 is down; -20 is up;
+//1 is right; -1 is left; width is down; -width is up;
 let direction = 1;
+
+//prevents double key presses in one tick
 let isKeyPressed = false;
 
-let squares = [];
+let field = [];
 let snake = [2, 1, 0];
 
 function createGrid() {
@@ -20,7 +23,7 @@ function createGrid() {
         //put the element into our grid
         grid.appendChild(square)
         //push it into a new squares array
-        squares.push(square);
+        field.push(square);
     }
 }
 
@@ -30,11 +33,11 @@ function doGameCycle() {
 
 function checkCollision() {
     if (
-        ((snake[0] - 20 < 0) && direction === -20) ||  //snake hits top wall!
-        ((snake[0] % 20 === 19) && direction === 1) ||  //snake hits right wall!
-        ((snake[0] + 20 > 400) && direction === 20) ||  //snake hits bottom wall!
-        ((snake[0] % 20 === 0) && direction === -1) ||  //snake hits left wall!
-        (squares[snake[0] + direction].classList.contains('snake'))
+        ((snake[0] - width < 0) && direction === -width)            ||  //snake hits top wall!
+        ((snake[0] % width === width - 1) && direction === 1)       ||  //snake hits right wall!
+        ((snake[0] + width > width * width) && direction === width) ||  //snake hits bottom wall!
+        ((snake[0] % width === 0) && direction === -1)              ||  //snake hits left wall!
+        (field[snake[0] + direction].classList.contains('snake'))     //snake bit its tail!
     ) {
         clearInterval(gameTick);
         return true;
@@ -44,9 +47,9 @@ function checkCollision() {
 
 function move() {
     if (!checkCollision()) {
-        squares[(snake.pop())].classList.remove('snake');
+        field[(snake.pop())].classList.remove('snake');
         snake.unshift(snake[0] + direction);
-        squares[snake[0]].classList.add('snake');
+        field[snake[0]].classList.add('snake');
         isKeyPressed = false;
     }
 }
@@ -56,13 +59,13 @@ function keyHandler(event) {
         isKeyPressed = true;
         switch (event.key) {
             case 'ArrowUp':
-                direction = direction === 20 ? 20 : -20;
+                direction = direction === width ? width : -width;
                 break;
             case 'ArrowRight':
                 direction = direction === -1 ? -1 : 1;
                 break;
             case 'ArrowDown':
-                direction = direction === -20 ? -20 : 20
+                direction = direction === -width ? -width : width
                 break;
             case 'ArrowLeft':
                 direction = direction === 1 ? 1 : -1;
@@ -79,7 +82,7 @@ function keyHandler(event) {
 createGrid();
 
 snake.forEach((frag) => {
-    squares[frag].classList.add('snake');
+    field[frag].classList.add('snake');
 })
 
 
