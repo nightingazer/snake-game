@@ -54,8 +54,9 @@ function move() {
 		if (field[snake[0]].classList.contains("apple")) {
 			eatApple();
 			generateApple();
+		} else {
+			field[snake.pop()].classList.remove("snake");
 		}
-		field[snake.pop()].classList.remove("snake");
 		snake.unshift(snake[0] + direction);
 		field[snake[0]].classList.add("snake");
 		isKeyPressed = false;
