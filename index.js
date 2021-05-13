@@ -8,9 +8,6 @@ let tick = 250;
 //1 is right; -1 is left; width is down; -width is up;
 let direction = 1;
 
-//prevents double key presses in one tick
-let isKeyPressed = false;
-
 let field = [];
 let snake = [2, 1, 0];
 let appleIndex = 0;
@@ -78,25 +75,34 @@ function generateApple() {
 }
 
 function keyHandler(event) {
-	if (!isKeyPressed) {
-		isKeyPressed = true;
-		switch (event.key) {
-			case "ArrowUp":
-				direction = direction === width ? width : -width;
+	switch (event.key) {
+		case "ArrowUp":
+			if (field[snake[0] - width].classList.contains("snake")) {
 				break;
-			case "ArrowRight":
-				direction = direction === -1 ? -1 : 1;
+			}
+			direction = -width;
+			break;
+		case "ArrowRight":
+			if (field[snake[0] + 1].classList.contains("snake")) {
 				break;
-			case "ArrowDown":
-				direction = direction === -width ? -width : width;
+			}
+			direction = 1;
+			break;
+		case "ArrowDown":
+			if (field[snake[0] + width].classList.contains("snake")) {
 				break;
-			case "ArrowLeft":
-				direction = direction === 1 ? 1 : -1;
+			}
+			direction = width;
+			break;
+		case "ArrowLeft":
+			if (field[snake[0] - 1].classList.contains("snake")) {
 				break;
-			case "Escape":
-				clearInterval(gameTick);
-				break;
-		}
+			}
+			direction = -1;
+			break;
+		case "Escape":
+			clearInterval(gameTick);
+			break;
 	}
 }
 
