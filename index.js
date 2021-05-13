@@ -3,7 +3,7 @@ const startButton = document.getElementById('start-btn')
 const score = document.getElementById('score')
 
 //1 is right; -1 is left; 20 is down; -20 is up;
-let direction = 1;
+let direction = 20;
 
 let squares = [];
 let snake = [2, 1, 0];
@@ -28,14 +28,11 @@ snake.forEach((frag) => {
     squares[frag].classList.add('snake');
 })
 
-snake.forEach((frag) => {
-    squares[frag].classList.add('snake');
-})
-
 function move() {
     squares[(snake.pop())].classList.remove('snake');
-    snake.unshift(snake[0] + 1);
+    snake.unshift(snake[0] + direction);
     squares[snake[0]].classList.add('snake');
 }
 
-// setInterval(move, 10)
+let gameTick = setInterval(move, 1000);
+
