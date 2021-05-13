@@ -63,6 +63,8 @@ function move() {
 function eatApple() {
 	field[appleIndex].classList.remove("apple");
 	tick = tick * 0.9;
+	score++;
+	scoreboard.textContent = score;
 	clearInterval(gameTick);
 	gameTick = setInterval(doGameCycle, tick);
 }
