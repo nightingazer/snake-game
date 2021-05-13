@@ -1,5 +1,5 @@
 const grid = document.querySelector(".grid");
-const startButton = document.getElementById("start-btn");
+const startResetBtn = document.getElementById("start-btn");
 const scoreboard = document.getElementById("score");
 const width = 20;
 
@@ -9,9 +9,10 @@ let tick = 250;
 let direction = 1;
 
 let field = [];
-let snake = [2, 1, 0];
+let snake = [];
 let appleIndex = 0;
 let score = 0;
+let gameTick;
 
 function createGrid() {
 	//create 100 of these elements with a for loop
@@ -108,13 +109,21 @@ function keyHandler(event) {
 	}
 }
 
-createGrid();
-generateApple();
+function resetGame() {
+	snake = [2, 1, 0];
+	grid.innerHTML = "";
+	field = [];
+	tick = 250;
+	clearInterval(gameTick);
+	createGrid();
+	generateApple();
 
-snake.forEach((frag) => {
-	field[frag].classList.add("snake");
-});
+	snake.forEach((frag) => {
+		field[frag].classList.add("snake");
+	});
 
-let gameTick = setInterval(doGameCycle, tick);
+	gameTick = setInterval(doGameCycle, tick);
+}
 
 document.addEventListener("keydown", keyHandler);
+startResetBtn.addEventListener("click", resetGame);
