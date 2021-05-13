@@ -1,6 +1,11 @@
 const grid = document.querySelector(".grid");
-const startResetBtn = document.getElementById("start-btn");
+const startResetBtn = document.querySelectorAll(".start-btn");
+const resumeBtn = document.querySelector(".resume-btn");
 const scoreboard = document.getElementById("score");
+const startOverlay = document.querySelector(".start-overlay");
+const pauseOverlay = document.querySelector(".pause-overlay");
+const gameOverOverlay = document.querySelector(".game-over");
+
 const width = 20;
 
 let tick = 250;
@@ -19,7 +24,6 @@ function createGrid() {
 	for (let i = 0; i < 400; i++) {
 		//create element
 		const square = document.createElement("div");
-		console.log(square);
 		//add styling to the element
 		square.classList.add("square");
 		//put the element into our grid
@@ -41,7 +45,7 @@ function checkCollision() {
 		(snake[0] % width === 0 && direction === -1) || //snake hits left wall!
 		field[snake[0] + direction].classList.contains("snake") //snake bit its tail!
 	) {
-		clearInterval(gameTick);
+		gameOver();
 		return true;
 	}
 	return false;
@@ -104,16 +108,20 @@ function keyHandler(event) {
 			direction = -1;
 			break;
 		case "Escape":
-			clearInterval(gameTick);
+			pauseGame();
 			break;
 	}
 }
 
 function resetGame() {
+	startOverlay.style.display = "none";
+	pauseOverlay.style.display = "none";
+	gameOverOverlay.style.display = "none";
 	snake = [2, 1, 0];
 	grid.innerHTML = "";
 	field = [];
 	tick = 250;
+	direction = 1;
 	clearInterval(gameTick);
 	createGrid();
 	generateApple();
@@ -125,5 +133,23 @@ function resetGame() {
 	gameTick = setInterval(doGameCycle, tick);
 }
 
+function pauseGame() {
+	clearInterval(gameTick);
+	pauseOverlay.style.display = "block";
+}
+
+function resumeGame() {
+	pauseOverlay.style.display = "none";
+	gameTick = setInterval(doGameCycle, tick);
+}
+
+function gameOver() {
+	clearInterval(gameTick);
+	gameOverOverlay.style.display = "block";
+}
+
 document.addEventListener("keydown", keyHandler);
-startResetBtn.addEventListener("click", resetGame);
+startResetBtn.forEach((btn) => {
+	btn.addEventListener("click", resetGame);
+});
+resumeBtn.addEventListener("click", resumeGame);

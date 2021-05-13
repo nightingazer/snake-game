@@ -1,30 +1,124 @@
-html,
 body {
-  margin: 10;
-  padding: 10;
+	margin: 0;
+	padding: 0;
+	font-family: Roboto, Arial, Helvetica, sans-serif;
+	height: 100vh;
+	width: 100vw;
+	color: white;
+	background: #000;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+h1 {
+	font-size: 60px;
 }
 
 .grid {
-  width: 500px;
-  height: 500px;
-  border: solid 2px black;
-  display: flex;
-  flex-wrap: wrap;
+	width: 500px;
+	height: 500px;
+	border: solid 2px white;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .square {
-  width: 5%;
-  height: 5%;
+	width: 5%;
+	height: 5%;
 }
 
 .snake {
-  background: green;
+	/* background: green; */
+	border: 5px solid white;
 }
 
 .apple {
-  background: red;
+	/* background: red; */
+	border: 5px solid red;
+}
+
+.grid-wrapper {
+	position: relative;
+	width: fit-content;
+	margin: 0 auto;
+	top: 50%;
+	transform: translateY(-50%);
+	/* display: none; */
+}
+
+.scoreboard {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 10px;
+}
+
+.overlay {
+	display: block;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.start-overlay {
+	background: black;
+}
+
+.pause-overlay {
+	background: rgba(0, 0, 0, 0.5);
+	display: none;
+}
+
+.game-over {
+	color: red;
+	background: rgba(0, 0, 0, 0.5);
+	display: none;
+}
+
+.container {
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+button {
+	font-size: 30px;
+	font-weight: bold;
+	color: white;
+	padding: 15px 45px;
+	border: none;
+	border-radius: 10px;
+	outline: none;
+	display: block;
+	margin: 10px auto;
+	background: rgba(0, 0, 0, 0);
+	border: solid 5px;
+}
+
+.resume-btn {
+	color: rgb(48, 138, 48);
+}
+
+button:hover {
+	color: white;
+}
+
+.resume-btn:active {
+	color: rgb(48, 138, 48);
+}
+
+.start-btn {
+	color: rgb(122, 27, 20);
+}
+
+.start-btn:active {
+	color: rgb(122, 27, 20);
 }

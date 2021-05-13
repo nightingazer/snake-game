@@ -1,20 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<title>Snake!</title>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Snake!</title>
-</head>
-
-<body>
-    <h1>Snake Game</h1>
-    <button id="start-btn">Start/Restart</button>
-    <h2>Score <span id="score">0</span></h2>
-    <div class="grid"></div>
-    <script src="index.js"></script>
-</body>
-
+	<body>
+		<div class="grid-wrapper">
+			<p class="scoreboard">Score <span id="score">0</span></p>
+			<div class="grid"></div>
+		</div>
+		<div class="overlay pause-overlay">
+			<div class="container">
+				<h1>Snake Game</h1>
+				<button class="resume-btn">Resume Game</button>
+				<button class="start-btn">Restart Game</button>
+			</div>
+		</div>
+		<div class="overlay start-overlay">
+			<div class="container">
+				<h1>Snake Game</h1>
+				<button class="start-btn">Start Game</button>
+			</div>
+		</div>
+		<div class="overlay game-over">
+			<div class="container">
+				<h1>GAME OVER</h1>
+				<button class="start-btn">Restart Game</button>
+			</div>
+		</div>
+		<script src="index.js"></script>
+	</body>
 </html>
