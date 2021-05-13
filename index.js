@@ -11,6 +11,7 @@ let isKeyPressed = false;
 
 let field = [];
 let snake = [2, 1, 0];
+let appleIndex = 0;
 
 function createGrid() {
     //create 100 of these elements with a for loop
@@ -54,6 +55,13 @@ function move() {
     }
 }
 
+function generateApple() {
+    do {
+        appleIndex = Math.floor(Math.random()*401);
+    } while (field[appleIndex].classList.contains('snake'))
+    field[appleIndex].classList.add('apple');
+}
+
 function keyHandler(event) {
     if (!isKeyPressed) {
         isKeyPressed = true;
@@ -80,6 +88,7 @@ function keyHandler(event) {
 
 
 createGrid();
+generateApple();
 
 snake.forEach((frag) => {
     field[frag].classList.add('snake');
